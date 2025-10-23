@@ -1,0 +1,42 @@
+[OPEN_METEO_WEATHER]
+curl_command: curl -X GET "https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&current=temperature_2m,weather_code&timezone=auto"
+description: Retrieves current weather forecast for London using Open-Meteo API
+documentation_url: https://open-meteo.com/en/docs
+postman_collection_url: 
+example_prompt_url: 
+
+[SWAPI_PEOPLE]
+curl_command: curl -X GET "https://swapi.dev/api/people/1/"
+description: Retrieves Star Wars character data from SWAPI
+documentation_url: https://swapi.dev/
+postman_collection_url: 
+example_prompt_url: 
+
+[JSONPLACEHOLDER_POSTS]
+curl_command: curl -X GET "https://jsonplaceholder.typicode.com/posts/1"
+description: Retrieves a sample blog post from JSONPlaceholder fake API
+documentation_url: https://jsonplaceholder.typicode.com/guide/
+postman_collection_url: 
+example_prompt_url: 
+
+[RANDOMUSER_GENERATOR]
+curl_command: curl -X GET "https://randomuser.me/api/"
+description: Generates random user data with profile information
+documentation_url: https://randomuser.me/documentation
+postman_collection_url: 
+example_prompt_url: 
+
+[JIKAN_ANIME]
+curl_command: curl -X GET "https://api.jikan.moe/v4/anime/1"
+description: Retrieves anime information from MyAnimeList via Jikan API
+documentation_url: https://docs.api.jikan.moe/
+postman_collection_url: 
+example_prompt_url: 
+
+[TVMAZE_SHOWS]
+curl_command: curl -X GET "https://api.tvmaze.com/shows/1"
+description: Retrieves TV show information from TVMaze API
+documentation_url: https://www.tvmaze.com/api
+postman_collection_url:
+example_prompt_url:
+

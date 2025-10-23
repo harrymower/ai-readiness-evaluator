@@ -1,0 +1,138 @@
+[ROUND_1_CURL_ONLY]
+Build a Python CLI tool that calls this API:
+
+{curl_command}
+
+The CLI tool should:
+1. Accept command-line arguments for the API parameters
+2. Make the API call using the curl command as a reference
+3. Parse and display the response in a user-friendly format
+4. Handle errors gracefully
+5. Include ALL necessary imports at the top of the file
+
+Also write comprehensive pytest tests for your CLI tool. The tests should:
+1. Test the main functionality with valid inputs
+2. Test error handling with invalid inputs
+3. Mock the API calls to avoid external dependencies
+4. Achieve good code coverage
+5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+
+IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+
+Create two files:
+1. cli_tool.py - The CLI tool implementation
+2. test_cli_tool.py - The pytest tests
+
+Use the file creation tools to write these files to the current working directory.
+
+---
+
+[ROUND_2_WITH_DOCS]
+Build a Python CLI tool that calls this API:
+
+{curl_command}
+
+Here is the API documentation:
+{documentation_url}
+
+The CLI tool should:
+1. Accept command-line arguments for the API parameters
+2. Make the API call using the curl command as a reference
+3. Parse and display the response in a user-friendly format
+4. Handle errors gracefully
+5. Follow the API documentation for proper usage
+6. Include ALL necessary imports at the top of the file
+
+Also write comprehensive pytest tests for your CLI tool. The tests should:
+1. Test the main functionality with valid inputs
+2. Test error handling with invalid inputs
+3. Mock the API calls to avoid external dependencies
+4. Achieve good code coverage
+5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+
+IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+
+Create two files:
+1. cli_tool.py - The CLI tool implementation
+2. test_cli_tool.py - The pytest tests
+
+Use the file creation tools to write these files to the current working directory.
+
+---
+
+[ROUND_3_WITH_POSTMAN]
+Build a Python CLI tool that calls this API:
+
+{curl_command}
+
+Here is the API documentation:
+{documentation_url}
+
+Here is a Postman collection for the API:
+{postman_collection_url}
+
+The CLI tool should:
+1. Accept command-line arguments for the API parameters
+2. Make the API call using the curl command as a reference
+3. Parse and display the response in a user-friendly format
+4. Handle errors gracefully
+5. Follow the API documentation for proper usage
+6. Use the Postman collection as a reference for API endpoints and parameters
+7. Include ALL necessary imports at the top of the file
+
+Also write comprehensive pytest tests for your CLI tool. The tests should:
+1. Test the main functionality with valid inputs
+2. Test error handling with invalid inputs
+3. Mock the API calls to avoid external dependencies
+4. Achieve good code coverage
+5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+
+IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+
+Create two files:
+1. cli_tool.py - The CLI tool implementation
+2. test_cli_tool.py - The pytest tests
+
+Use the file creation tools to write these files to the current working directory.
+
+---
+
+[ROUND_4_WITH_EXAMPLES]
+Build a Python CLI tool that calls this API:
+
+{curl_command}
+
+Here is the API documentation:
+{documentation_url}
+
+Here is a Postman collection for the API:
+{postman_collection_url}
+
+Here is an example of how to use the API:
+{example_prompt_url}
+
+The CLI tool should:
+1. Accept command-line arguments for the API parameters
+2. Make the API call using the curl command as a reference
+3. Parse and display the response in a user-friendly format
+4. Handle errors gracefully
+5. Follow the API documentation for proper usage
+6. Use the Postman collection as a reference for API endpoints and parameters
+7. Follow the example usage patterns provided
+8. Include ALL necessary imports at the top of the file
+
+Also write comprehensive pytest tests for your CLI tool. The tests should:
+1. Test the main functionality with valid inputs
+2. Test error handling with invalid inputs
+3. Mock the API calls to avoid external dependencies
+4. Achieve good code coverage
+5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+
+IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+
+Create two files:
+1. cli_tool.py - The CLI tool implementation
+2. test_cli_tool.py - The pytest tests
+
+Use the file creation tools to write these files to the current working directory.
+

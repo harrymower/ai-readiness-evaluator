@@ -1,0 +1,12 @@
+# Core dependencies
+python-dotenv==1.0.0
+requests==2.31.0
+pytest==7.4.3
+
+# Claude SDK
+# Note: Install claude-agent-sdk from the official source
+# claude-agent-sdk>=0.1.0
+
+# Optional: For better JSON handling
+# jsonschema==4.20.0
+
