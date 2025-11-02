@@ -40,3 +40,157 @@ documentation_url: https://www.tvmaze.com/api
 postman_collection_url:
 example_prompt_url:
 
+[OMDB_MOVIES]
+curl_command: curl -X GET "https://www.omdbapi.com/?t=The+Matrix&type=movie&y=1999&plot=full&apikey=demo"
+description: Retrieves movie information from OMDB (Open Movie Database)
+documentation_url: https://www.omdbapi.com/
+postman_collection_url:
+example_prompt_url:
+
+[POKEAPI_POKEMON]
+curl_command: curl -X GET "https://pokeapi.co/api/v2/pokemon/1"
+description: Retrieves Pokemon data including stats, abilities, and moves from PokéAPI
+documentation_url: https://pokeapi.co/docs/v2
+postman_collection_url:
+example_prompt_url:
+
+[GITHUB_USER]
+curl_command: curl -X GET "https://api.github.com/users/torvalds"
+description: Retrieves GitHub user profile information and statistics
+documentation_url: https://docs.github.com/en/rest/users/users
+postman_collection_url:
+example_prompt_url:
+
+[COINDESK_BITCOIN]
+curl_command: curl -X GET "https://api.coindesk.com/v1/bpi/currentprice/USD.json"
+description: Retrieves current Bitcoin price index from CoinDesk
+documentation_url: https://www.coindesk.com/api/
+postman_collection_url:
+example_prompt_url:
+
+[RESTCOUNTRIES_DATA]
+curl_command: curl -X GET "https://restcountries.com/v3.1/name/united%20states"
+description: Retrieves detailed country information including borders, languages, and currencies
+documentation_url: https://restcountries.com/
+postman_collection_url:
+example_prompt_url:
+
+[QUOTABLE_QUOTES]
+curl_command: curl -X GET "https://api.quotable.io/random"
+description: Retrieves random famous quotes with author information
+documentation_url: https://quotable.io/
+postman_collection_url:
+example_prompt_url:
+
+[CATFACTS_API]
+curl_command: curl -X GET "https://catfact.ninja/fact"
+description: Retrieves random cat facts
+documentation_url: https://catfact.ninja/
+postman_collection_url:
+example_prompt_url:
+
+[AGIFY_PREDICTION]
+curl_command: curl -X GET "https://api.agify.io?name=michael"
+description: Predicts age based on first name using historical data
+documentation_url: https://agify.io/
+postman_collection_url:
+example_prompt_url:
+
+[GENDERIZE_PREDICTION]
+curl_command: curl -X GET "https://api.genderize.io?name=michael"
+description: Predicts gender based on first name using historical data
+documentation_url: https://genderize.io/
+postman_collection_url:
+example_prompt_url:
+
+[NATIONALIZE_PREDICTION]
+curl_command: curl -X GET "https://api.nationalize.io?name=michael"
+description: Predicts nationality based on first name using historical data
+documentation_url: https://nationalize.io/
+postman_collection_url:
+example_prompt_url:
+
+[IPIFY_GEOLOCATION]
+curl_command: curl -X GET "https://geo.ipify.org/api/v2/country?apiKey=at_demo"
+description: Retrieves geolocation information based on IP address
+documentation_url: https://geo.ipify.org/
+postman_collection_url:
+example_prompt_url:
+
+[WEATHERAPI_CURRENT]
+curl_command: curl -X GET "https://api.weatherapi.com/v1/current.json?key=demo&q=London&aqi=no"
+description: Retrieves current weather conditions and forecasts from WeatherAPI
+documentation_url: https://www.weatherapi.com/docs/
+postman_collection_url:
+example_prompt_url:
+
+[SPOONACULAR_RECIPES]
+curl_command: curl -X GET "https://api.spoonacular.com/recipes/1/information?apiKey=demo"
+description: Retrieves recipe information including ingredients and instructions
+documentation_url: https://spoonacular.com/food-api
+postman_collection_url:
+example_prompt_url:
+
+[ADVICESLIP_ADVICE]
+curl_command: curl -X GET "https://api.adviceslip.com/advice"
+description: Retrieves random advice slips with unique IDs
+documentation_url: https://api.adviceslip.com/
+postman_collection_url:
+example_prompt_url:
+
+[USELESSFACTS_API]
+curl_command: curl -X GET "https://uselessfacts.jsph.pl/random.json?language=en"
+description: Retrieves random useless facts
+documentation_url: https://uselessfacts.jsph.pl/
+postman_collection_url:
+example_prompt_url:
+
+[NUMBERSAPI_TRIVIA]
+curl_command: curl -X GET "https://api.api-ninjas.com/v1/facts?limit=1"
+description: Retrieves interesting facts about numbers and dates
+documentation_url: https://api-ninjas.com/api/facts
+postman_collection_url:
+example_prompt_url:
+
+[KANYE_QUOTES]
+curl_command: curl -X GET "https://api.kanye.rest/"
+description: Retrieves random Kanye West quotes
+documentation_url: https://github.com/jaysalvat/kanye.rest
+postman_collection_url:
+example_prompt_url:
+
+[BORED_ACTIVITIES]
+curl_command: curl -X GET "https://www.boredapi.com/api/activity"
+description: Retrieves random activity suggestions when bored
+documentation_url: https://www.boredapi.com/
+postman_collection_url:
+example_prompt_url:
+
+[TRONALDDUMP_QUOTES]
+curl_command: curl -X GET "https://api.tronalddump.io/random/quote"
+description: Retrieves random Donald Trump quotes
+documentation_url: https://tronalddump.io/
+postman_collection_url:
+example_prompt_url:
+
+[OFFICEQUOTES_API]
+curl_command: curl -X GET "https://www.officeapi.dev/api/quotes/random"
+description: Retrieves random quotes from the TV show The Office
+documentation_url: https://www.officeapi.dev/
+postman_collection_url:
+example_prompt_url:
+
+[BREAKINGBAD_CHARACTERS]
+curl_command: curl -X GET "https://www.breakingbadapi.com/api/characters/1"
+description: Retrieves character information from Breaking Bad TV series
+documentation_url: https://www.breakingbadapi.com/
+postman_collection_url:
+example_prompt_url:
+
+[RICKANDMORTY_CHARACTERS]
+curl_command: curl -X GET "https://rickandmortyapi.com/api/character/1"
+description: Retrieves character information from Rick and Morty TV series
+documentation_url: https://rickandmortyapi.com/
+postman_collection_url:
+example_prompt_url:
+

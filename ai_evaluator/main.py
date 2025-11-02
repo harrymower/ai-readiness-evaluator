@@ -68,6 +68,25 @@ def _round_name_to_folder(round_name: str) -> str:
     return round_name.lower().replace('_', '-')
 
 
+def _get_round_description(round_name: str) -> str:
+    """
+    Get a human-readable description of what each round includes.
+
+    Args:
+        round_name: Round name (e.g., ROUND_1_CURL_ONLY)
+
+    Returns:
+        str: Description of what the round includes
+    """
+    descriptions = {
+        'ROUND_1_CURL_ONLY': 'curl command only',
+        'ROUND_2_WITH_DOCS': 'curl command + API documentation',
+        'ROUND_3_WITH_POSTMAN': 'curl command + docs + Postman collection',
+        'ROUND_4_WITH_EXAMPLES': 'curl command + docs + Postman + example prompts'
+    }
+    return descriptions.get(round_name, 'Unknown configuration')
+
+
 class EvaluatorOrchestrator:
     """Orchestrates the AI Readiness Evaluation workflow."""
 
@@ -415,11 +434,59 @@ class EvaluatorOrchestrator:
         lines.append(f"**Test Run**: {os.path.basename(self.test_dir)}\n")
         lines.append(f"**Generated**: {datetime.now().isoformat()}\n\n")
 
+        # Calculate round scores first (needed for Executive Summary)
+        all_scores = {}
+        for round_name in self.prompts.keys():
+            round_scores = []
+            for api_name in self.apis.keys():
+                if api_name in self.results and round_name in self.results[api_name]:
+                    result = self.results[api_name][round_name]
+                    if result.get("status") == "success":
+                        round_scores.append(result.get("score", 0))
+            if round_scores:
+                all_scores[round_name] = sum(round_scores) / len(round_scores)
+
         # Executive Summary
         lines.append("## Executive Summary\n\n")
         lines.append(f"- **Total APIs Evaluated**: {len(self.apis)}\n")
         lines.append(f"- **Total Rounds**: {len(self.prompts)}\n")
         lines.append(f"- **Test Directory**: {self.test_dir}\n\n")
+
+        # Best performing round analysis
+        if all_scores:
+            best_round = max(all_scores, key=all_scores.get)
+            worst_round = min(all_scores, key=all_scores.get)
+            best_score = all_scores[best_round]
+            worst_score = all_scores[worst_round]
+            delta = best_score - worst_score
+
+            lines.append("### 🏆 Best Performing Round\n\n")
+            lines.append(f"**{best_round}** achieved the highest average score\n\n")
+            lines.append(f"- **Average Score**: {best_score:.1f}/100\n")
+            lines.append(f"- **Configuration**: {_get_round_description(best_round)}\n\n")
+
+            # Round ranking
+            lines.append("### 📊 Round Performance Ranking\n\n")
+            sorted_rounds = sorted(all_scores.items(), key=lambda x: x[1], reverse=True)
+            for rank, (round_name, score) in enumerate(sorted_rounds, 1):
+                description = _get_round_description(round_name)
+                lines.append(f"{rank}. **{round_name}** - {score:.1f}/100\n")
+                lines.append(f"   - Configuration: {description}\n\n")
+
+            # Performance delta
+            lines.append("### 📈 Performance Impact Analysis\n\n")
+            lines.append(f"- **Best Round**: {best_round} ({best_score:.1f}/100)\n")
+            lines.append(f"- **Worst Round**: {worst_round} ({worst_score:.1f}/100)\n")
+            lines.append(f"- **Performance Delta**: {delta:.1f} points ({(delta/worst_score*100):.1f}% improvement)\n\n")
+            lines.append("**Interpretation**: The additional context provided in higher-numbered rounds ")
+            if delta > 5:
+                lines.append(f"significantly improved Claude's code generation performance by {delta:.1f} points.\n\n")
+            elif delta > 0:
+                lines.append(f"moderately improved Claude's code generation performance by {delta:.1f} points.\n\n")
+            else:
+                lines.append("did not improve Claude's code generation performance.\n\n")
+        else:
+            lines.append("⚠️ **No successful evaluations** - Unable to calculate round performance metrics.\n\n")
 
         # Round Summary
         lines.append("## Round Summary\n\n")
@@ -460,26 +527,39 @@ class EvaluatorOrchestrator:
             lines.append("\n")
 
         # Analysis
-        lines.append("## Analysis\n\n")
-        lines.append("### Overview\n\n")
-
-        # Find best and worst rounds
-        all_scores = {}
-        for round_name in self.prompts.keys():
-            round_scores = []
-            for api_name in self.apis.keys():
-                if api_name in self.results and round_name in self.results[api_name]:
-                    result = self.results[api_name][round_name]
-                    if result.get("status") == "success":
-                        round_scores.append(result.get("score", 0))
-            if round_scores:
-                all_scores[round_name] = sum(round_scores) / len(round_scores)
+        lines.append("## Detailed Analysis\n\n")
+        lines.append("### Key Insights\n\n")
 
         if all_scores:
-            best_round = max(all_scores, key=all_scores.get)
-            worst_round = min(all_scores, key=all_scores.get)
-            lines.append(f"- **Best Performing Round**: {best_round} ({all_scores[best_round]:.1f}/100)\n")
-            lines.append(f"- **Worst Performing Round**: {worst_round} ({all_scores[worst_round]:.1f}/100)\n\n")
+            # Analyze trends across rounds
+            sorted_rounds = sorted(all_scores.items(), key=lambda x: x[1], reverse=True)
+
+            # Check if there's a consistent improvement trend
+            scores_list = [score for _, score in sorted_rounds]
+            is_improving = all(scores_list[i] >= scores_list[i+1] for i in range(len(scores_list)-1))
+
+            if is_improving:
+                lines.append("✅ **Consistent Improvement**: Performance improves with each additional context level.\n\n")
+            else:
+                lines.append("⚠️ **Variable Performance**: Performance does not consistently improve with additional context.\n\n")
+
+            # Identify best and worst APIs across all rounds
+            api_scores = {}
+            for api_name in self.apis.keys():
+                api_round_scores = []
+                for round_name in self.prompts.keys():
+                    if api_name in self.results and round_name in self.results[api_name]:
+                        result = self.results[api_name][round_name]
+                        if result.get("status") == "success":
+                            api_round_scores.append(result.get("score", 0))
+                if api_round_scores:
+                    api_scores[api_name] = sum(api_round_scores) / len(api_round_scores)
+
+            if api_scores:
+                best_api = max(api_scores, key=api_scores.get)
+                worst_api = min(api_scores, key=api_scores.get)
+                lines.append(f"- **Best Performing API**: {best_api} (avg {api_scores[best_api]:.1f}/100)\n")
+                lines.append(f"- **Most Challenging API**: {worst_api} (avg {api_scores[worst_api]:.1f}/100)\n\n")
 
         lines.append("### Transcript Logs\n\n")
         lines.append("Detailed transcript logs for each API/round combination are available in:\n\n")
