@@ -407,6 +407,8 @@ class EvaluatorOrchestrator:
                             "pass_rate": evaluation.get('pass_rate', 0),
                             "report_path": report_path
                         }
+                        # Record success in results for summary reporting
+                        self.results[api_name][round_name] = result_data
 
                         if self.config.DEBUG_MODE:
                             print(f"    Score: {evaluation.get('score', 0)}/100")
