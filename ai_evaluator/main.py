@@ -9,10 +9,11 @@ from ai_evaluator.utils import (
     parse_apis_config, parse_prompts_config,
     write_file, FileError, ParseError
 )
-from ai_evaluator.claude_client import ClaudeClient, ClaudeClientError
+from ai_evaluator.claude_client import ClaudeClient, ClaudeClientError, PartialFileCreationError
 from ai_evaluator.test_runner import TestRunner, TestRunnerError
 from ai_evaluator.evaluator import Evaluator, EvaluatorError
 from ai_evaluator.report_generator import ReportGenerator, ReportGeneratorError
+from ai_evaluator.behavioral_validator import BehavioralValidator
 
 
 def _get_next_test_number(results_dir: str) -> str:
@@ -227,21 +228,53 @@ class EvaluatorOrchestrator:
                         prompt_template, api_name, api_config
                     )
 
-                    # Step 2: Send prompt to Claude and get response
-                    if self.config.DEBUG_MODE:
-                        print(f"    Sending prompt to Claude...")
-                        print(f"    [DEBUG] Prompt length: {len(prompt)}")
-                        print(f"    [DEBUG] Full prompt:\n{prompt}\n")
-                    claude_response = claude_client.send_prompt(prompt)
+                    # Step 2: Send prompt to Claude and get response (with retry for partial file creation)
+                    max_retries = 2
+                    retry_count = 0
+                    code_and_tests = None
 
-                    # Add to working phase transcript
-                    working_transcript.append(f"## Prompt\n\n```\n{prompt}\n```\n\n")
-                    working_transcript.append(f"## Claude Response\n\n```\n{claude_response[:1000]}...\n```\n\n")
+                    while retry_count <= max_retries:
+                        if self.config.DEBUG_MODE:
+                            if retry_count > 0:
+                                print(f"    Retry attempt {retry_count}/{max_retries}...")
+                            print(f"    Sending prompt to Claude...")
+                            print(f"    [DEBUG] Prompt length: {len(prompt)}")
+                            if retry_count == 0:
+                                print(f"    [DEBUG] Full prompt:\n{prompt}\n")
 
-                    # Step 3: Extract code and tests from Claude's response
-                    code_and_tests = claude_client.parse_response_for_code_and_tests(
-                        claude_response
-                    )
+                        claude_response = claude_client.send_prompt(prompt)
+
+                        # Add to working phase transcript (save full response, not truncated)
+                        if retry_count == 0:
+                            working_transcript.append(f"## Prompt\n\n```\n{prompt}\n```\n\n")
+                            working_transcript.append(f"## Claude Response (Attempt 1)\n\n```\n{claude_response}\n```\n\n")
+                        else:
+                            working_transcript.append(f"## Claude Response (Retry Attempt {retry_count})\n\n```\n{claude_response}\n```\n\n")
+
+                        # Step 3: Extract code and tests from Claude's response
+                        try:
+                            code_and_tests = claude_client.parse_response_for_code_and_tests(
+                                claude_response
+                            )
+                            # Success! Break out of retry loop
+                            break
+                        except PartialFileCreationError as e:
+                            retry_count += 1
+                            if retry_count > max_retries:
+                                # Out of retries, re-raise the error
+                                raise
+                            # Log the partial creation and retry
+                            print(f"    ⚠️  Partial file creation detected: {e}")
+                            print(f"    Retrying... (attempt {retry_count}/{max_retries})")
+                            working_transcript.append(f"\n**Partial File Creation Error**: {e}\n\n")
+                            # Continue to next iteration
+                        except ClaudeClientError:
+                            # Other errors are not retryable
+                            raise
+
+                    if not code_and_tests:
+                        raise ValueError("Failed to extract code and tests after retries")
+
                     cli_code = code_and_tests.get('code', '')
                     test_code = code_and_tests.get('tests', '')
 
@@ -261,6 +294,24 @@ class EvaluatorOrchestrator:
                             print(f"    Running tests...")
                         test_runner = TestRunner(test_path)
                         test_results = test_runner.run_tests()
+
+                        # Step 5b: Run behavioral validation (if requirements exist)
+                        behavioral_results = None
+                        requirements_file = os.path.join(
+                            "config", "behavioral_requirements",
+                            f"{api_name.lower().replace('_', '-')}.yaml"
+                        )
+                        if os.path.exists(requirements_file):
+                            if self.config.DEBUG_MODE:
+                                print(f"    Running behavioral validation...")
+                            try:
+                                validator = BehavioralValidator(requirements_file)
+                                behavioral_results = validator.validate_cli(cli_path, tmpdir)
+                                if self.config.DEBUG_MODE:
+                                    print(f"    Behavioral score: {behavioral_results['score']}/{behavioral_results['total_weight']}")
+                            except Exception as e:
+                                print(f"    ⚠️  Behavioral validation failed: {e}")
+                                behavioral_results = None
 
                         # Step 6: Evaluate results
                         if self.config.DEBUG_MODE:
@@ -322,8 +373,35 @@ class EvaluatorOrchestrator:
                         testing_transcript.append(f"- **Pass Rate**: {evaluation.get('pass_rate', 0):.1f}%\n")
                         testing_transcript.append(f"- **Reasoning**: {evaluation.get('reasoning', 'N/A')}\n\n")
 
+                        # Add behavioral validation results if available
+                        if behavioral_results:
+                            testing_transcript.append(f"### Behavioral Validation Results\n\n")
+                            testing_transcript.append(f"- **Behavioral Score**: {behavioral_results['score']}/{behavioral_results['total_weight']}\n")
+                            testing_transcript.append(f"- **Tests Passed**: {behavioral_results['passed']}/{behavioral_results['passed'] + behavioral_results['failed']}\n\n")
+
+                            # Add detailed behavioral test results
+                            testing_transcript.append(f"#### Behavioral Test Details\n\n")
+                            for result in behavioral_results.get('results', []):
+                                status = "✅" if result['passed'] else "❌"
+                                testing_transcript.append(f"{status} **{result['name']}** ({result['weight']} points)\n")
+                                testing_transcript.append(f"   - Command: `cli_tool.py {result['command']}`\n")
+                                if result.get('error'):
+                                    testing_transcript.append(f"   - Error: {result['error']}\n")
+                                elif not result['passed']:
+                                    failed_checks = [c for c in result.get('checks', []) if not c['passed']]
+                                    if failed_checks:
+                                        testing_transcript.append(f"   - Failed checks:\n")
+                                        for check in failed_checks[:3]:  # Show first 3 failures
+                                            testing_transcript.append(f"     - {check['check']}: expected `{check['expected']}`, got `{check['actual']}`\n")
+                                testing_transcript.append(f"\n")
+
+                            # Save behavioral validation report
+                            behavioral_report = validator.generate_report(behavioral_results)
+                            behavioral_report_path = os.path.join(api_dir, "behavioral_validation_report.md")
+                            write_file(behavioral_report_path, behavioral_report)
+
                         # Store results
-                        self.results[api_name][round_name] = {
+                        result_data = {
                             "status": "success",
                             "score": evaluation.get('score', 0),
                             "pass_rate": evaluation.get('pass_rate', 0),
@@ -443,6 +521,9 @@ class EvaluatorOrchestrator:
                     result = self.results[api_name][round_name]
                     if result.get("status") == "success":
                         round_scores.append(result.get("score", 0))
+                    else:
+                        # Count errors as 0/100 to accurately reflect failures
+                        round_scores.append(0)
             if round_scores:
                 all_scores[round_name] = sum(round_scores) / len(round_scores)
 

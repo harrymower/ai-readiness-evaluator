@@ -11,19 +11,32 @@ The CLI tool should:
 5. Include ALL necessary imports at the top of the file
 
 Also write comprehensive pytest tests for your CLI tool. The tests should:
-1. Test the main functionality with valid inputs
-2. Test error handling with invalid inputs
-3. Mock the API calls to avoid external dependencies
-4. Achieve good code coverage
-5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+1. Test the main functionality by calling the REAL API with valid inputs
+2. Test error handling with invalid inputs (if safe to do so)
+3. Verify that the CLI correctly parses and displays real API responses
+4. DO NOT use mocks or fake data - call the actual API endpoints
+5. Include ALL necessary imports (pytest, requests, etc.)
 
-IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+IMPORTANT:
+- Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+- Tests should make REAL API calls to verify the CLI works correctly with the actual API
+- Do NOT use unittest.mock, requests-mock, or any mocking libraries
+- The goal is to verify your CLI can successfully interact with the real API
 
-Create two files:
-1. cli_tool.py - The CLI tool implementation
-2. test_cli_tool.py - The pytest tests
+CRITICAL: You MUST provide BOTH files in your response. Provide the complete code for both files using markdown code blocks:
+1. First code block: cli_tool.py - The CLI tool implementation
+2. Second code block: test_cli_tool.py - The pytest tests
 
-Use the file creation tools to write these files to the current working directory.
+Format your response with two Python code blocks like this:
+```python
+# cli_tool.py code here
+```
+
+```python
+# test_cli_tool.py code here
+```
+
+Do NOT use file creation tools. Use markdown code blocks only.
 
 ---
 
@@ -44,19 +57,32 @@ The CLI tool should:
 6. Include ALL necessary imports at the top of the file
 
 Also write comprehensive pytest tests for your CLI tool. The tests should:
-1. Test the main functionality with valid inputs
-2. Test error handling with invalid inputs
-3. Mock the API calls to avoid external dependencies
-4. Achieve good code coverage
-5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+1. Test the main functionality by calling the REAL API with valid inputs
+2. Test error handling with invalid inputs (if safe to do so)
+3. Verify that the CLI correctly parses and displays real API responses
+4. DO NOT use mocks or fake data - call the actual API endpoints
+5. Include ALL necessary imports (pytest, requests, etc.)
 
-IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+IMPORTANT:
+- Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+- Tests should make REAL API calls to verify the CLI works correctly with the actual API
+- Do NOT use unittest.mock, requests-mock, or any mocking libraries
+- The goal is to verify your CLI can successfully interact with the real API
 
-Create two files:
-1. cli_tool.py - The CLI tool implementation
-2. test_cli_tool.py - The pytest tests
+CRITICAL: You MUST provide BOTH files in your response. Provide the complete code for both files using markdown code blocks:
+1. First code block: cli_tool.py - The CLI tool implementation
+2. Second code block: test_cli_tool.py - The pytest tests
 
-Use the file creation tools to write these files to the current working directory.
+Format your response with two Python code blocks like this:
+```python
+# cli_tool.py code here
+```
+
+```python
+# test_cli_tool.py code here
+```
+
+Do NOT use file creation tools. Use markdown code blocks only.
 
 ---
 
@@ -81,19 +107,32 @@ The CLI tool should:
 7. Include ALL necessary imports at the top of the file
 
 Also write comprehensive pytest tests for your CLI tool. The tests should:
-1. Test the main functionality with valid inputs
-2. Test error handling with invalid inputs
-3. Mock the API calls to avoid external dependencies
-4. Achieve good code coverage
-5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+1. Test the main functionality by calling the REAL API with valid inputs
+2. Test error handling with invalid inputs (if safe to do so)
+3. Verify that the CLI correctly parses and displays real API responses
+4. DO NOT use mocks or fake data - call the actual API endpoints
+5. Include ALL necessary imports (pytest, requests, etc.)
 
-IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+IMPORTANT:
+- Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+- Tests should make REAL API calls to verify the CLI works correctly with the actual API
+- Do NOT use unittest.mock, requests-mock, or any mocking libraries
+- The goal is to verify your CLI can successfully interact with the real API
 
-Create two files:
-1. cli_tool.py - The CLI tool implementation
-2. test_cli_tool.py - The pytest tests
+CRITICAL: You MUST provide BOTH files in your response. Provide the complete code for both files using markdown code blocks:
+1. First code block: cli_tool.py - The CLI tool implementation
+2. Second code block: test_cli_tool.py - The pytest tests
 
-Use the file creation tools to write these files to the current working directory.
+Format your response with two Python code blocks like this:
+```python
+# cli_tool.py code here
+```
+
+```python
+# test_cli_tool.py code here
+```
+
+Do NOT use file creation tools. Use markdown code blocks only.
 
 ---
 
@@ -122,17 +161,30 @@ The CLI tool should:
 8. Include ALL necessary imports at the top of the file
 
 Also write comprehensive pytest tests for your CLI tool. The tests should:
-1. Test the main functionality with valid inputs
-2. Test error handling with invalid inputs
-3. Mock the API calls to avoid external dependencies
-4. Achieve good code coverage
-5. Include ALL necessary imports (pytest, unittest.mock, requests, etc.)
+1. Test the main functionality by calling the REAL API with valid inputs
+2. Test error handling with invalid inputs (if safe to do so)
+3. Verify that the CLI correctly parses and displays real API responses
+4. DO NOT use mocks or fake data - call the actual API endpoints
+5. Include ALL necessary imports (pytest, requests, etc.)
 
-IMPORTANT: Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+IMPORTANT:
+- Make sure to include ALL imports needed for the code to run. Do not assume any imports are already present.
+- Tests should make REAL API calls to verify the CLI works correctly with the actual API
+- Do NOT use unittest.mock, requests-mock, or any mocking libraries
+- The goal is to verify your CLI can successfully interact with the real API
 
-Create two files:
-1. cli_tool.py - The CLI tool implementation
-2. test_cli_tool.py - The pytest tests
+CRITICAL: You MUST provide BOTH files in your response. Provide the complete code for both files using markdown code blocks:
+1. First code block: cli_tool.py - The CLI tool implementation
+2. Second code block: test_cli_tool.py - The pytest tests
 
-Use the file creation tools to write these files to the current working directory.
+Format your response with two Python code blocks like this:
+```python
+# cli_tool.py code here
+```
+
+```python
+# test_cli_tool.py code here
+```
+
+Do NOT use file creation tools. Use markdown code blocks only.
 

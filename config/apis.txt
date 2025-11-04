@@ -2,195 +2,195 @@
 curl_command: curl -X GET "https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&current=temperature_2m,weather_code&timezone=auto"
 description: Retrieves current weather forecast for London using Open-Meteo API
 documentation_url: https://open-meteo.com/en/docs
-postman_collection_url: 
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-6eb1a23f-dce6-414c-8a26-d01ee6f7f613
 example_prompt_url: 
 
 [SWAPI_PEOPLE]
 curl_command: curl -X GET "https://swapi.dev/api/people/1/"
 description: Retrieves Star Wars character data from SWAPI
 documentation_url: https://swapi.dev/
-postman_collection_url: 
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-fe998eb6-0cee-4783-a550-8e58f8bfac53
 example_prompt_url: 
 
 [JSONPLACEHOLDER_POSTS]
 curl_command: curl -X GET "https://jsonplaceholder.typicode.com/posts/1"
 description: Retrieves a sample blog post from JSONPlaceholder fake API
 documentation_url: https://jsonplaceholder.typicode.com/guide/
-postman_collection_url: 
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-27fcf734-1785-4310-a620-0990d702a6aa
 example_prompt_url: 
 
 [RANDOMUSER_GENERATOR]
 curl_command: curl -X GET "https://randomuser.me/api/"
 description: Generates random user data with profile information
 documentation_url: https://randomuser.me/documentation
-postman_collection_url: 
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-c5b54a73-4805-4784-a180-c32c047bdb96
 example_prompt_url: 
 
 [JIKAN_ANIME]
 curl_command: curl -X GET "https://api.jikan.moe/v4/anime/1"
 description: Retrieves anime information from MyAnimeList via Jikan API
 documentation_url: https://docs.api.jikan.moe/
-postman_collection_url: 
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-fa155a4b-f476-4b05-86c8-e828576edde9
 example_prompt_url: 
 
 [TVMAZE_SHOWS]
 curl_command: curl -X GET "https://api.tvmaze.com/shows/1"
 description: Retrieves TV show information from TVMaze API
 documentation_url: https://www.tvmaze.com/api
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-b9562332-959d-4314-9d88-ed900f26c7e1
 example_prompt_url:
 
 [OMDB_MOVIES]
 curl_command: curl -X GET "https://www.omdbapi.com/?t=The+Matrix&type=movie&y=1999&plot=full&apikey=demo"
 description: Retrieves movie information from OMDB (Open Movie Database)
 documentation_url: https://www.omdbapi.com/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-bf3df6c3-c403-4acd-a562-d727eaeafc4a
 example_prompt_url:
 
 [POKEAPI_POKEMON]
 curl_command: curl -X GET "https://pokeapi.co/api/v2/pokemon/1"
 description: Retrieves Pokemon data including stats, abilities, and moves from PokéAPI
 documentation_url: https://pokeapi.co/docs/v2
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-da5b077f-5f90-4864-897a-0296e82110c6
 example_prompt_url:
 
 [GITHUB_USER]
 curl_command: curl -X GET "https://api.github.com/users/torvalds"
 description: Retrieves GitHub user profile information and statistics
 documentation_url: https://docs.github.com/en/rest/users/users
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-2d5cef68-aed8-4e40-bf04-f20e9316ce49
 example_prompt_url:
 
-[COINDESK_BITCOIN]
-curl_command: curl -X GET "https://api.coindesk.com/v1/bpi/currentprice/USD.json"
-description: Retrieves current Bitcoin price index from CoinDesk
-documentation_url: https://www.coindesk.com/api/
-postman_collection_url:
+[COINGECKO_BITCOIN]
+curl_command: curl -X GET "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+description: Retrieves current Bitcoin price in USD from CoinGecko API
+documentation_url: https://docs.coingecko.com/
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-2a4ca8d9-11d0-45ea-88c7-97d25a00635f
 example_prompt_url:
 
-[RESTCOUNTRIES_DATA]
-curl_command: curl -X GET "https://restcountries.com/v3.1/name/united%20states"
-description: Retrieves detailed country information including borders, languages, and currencies
-documentation_url: https://restcountries.com/
-postman_collection_url:
+[GEONAMES_LOCATIONS]
+curl_command: curl -X GET "https://www.geonames.org/childrenJSON?geonameId=2988507"
+description: Retrieves geographic location data including cities and administrative divisions from Geonames
+documentation_url: https://www.geonames.org/export/web-services.html
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-e8b31c41-8a1d-43e9-9e3c-5d26fbec3c6c
 example_prompt_url:
 
-[QUOTABLE_QUOTES]
-curl_command: curl -X GET "https://api.quotable.io/random"
-description: Retrieves random famous quotes with author information
-documentation_url: https://quotable.io/
-postman_collection_url:
+[ZENQUOTES_QUOTES]
+curl_command: curl -X GET "https://zenquotes.io/api/random"
+description: Retrieves random famous quotes with author information from ZenQuotes
+documentation_url: https://zenquotes.io/
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-bb7519ac-c6a2-4607-bd3c-ce8e2de8e1f0
 example_prompt_url:
 
 [CATFACTS_API]
 curl_command: curl -X GET "https://catfact.ninja/fact"
 description: Retrieves random cat facts
 documentation_url: https://catfact.ninja/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-0e1306fe-950e-4deb-b62f-6357354e6793
 example_prompt_url:
 
 [AGIFY_PREDICTION]
 curl_command: curl -X GET "https://api.agify.io?name=michael"
 description: Predicts age based on first name using historical data
 documentation_url: https://agify.io/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-8a4aeb2a-fc18-49d6-b70e-f0449427e5a0
 example_prompt_url:
 
 [GENDERIZE_PREDICTION]
 curl_command: curl -X GET "https://api.genderize.io?name=michael"
 description: Predicts gender based on first name using historical data
 documentation_url: https://genderize.io/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-f9d11d25-1e73-41bc-91c2-3e4a61551c68
 example_prompt_url:
 
 [NATIONALIZE_PREDICTION]
 curl_command: curl -X GET "https://api.nationalize.io?name=michael"
 description: Predicts nationality based on first name using historical data
 documentation_url: https://nationalize.io/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-ef8b9159-a0f3-42b9-bce4-a6abc437184d
 example_prompt_url:
 
-[IPIFY_GEOLOCATION]
-curl_command: curl -X GET "https://geo.ipify.org/api/v2/country?apiKey=at_demo"
-description: Retrieves geolocation information based on IP address
-documentation_url: https://geo.ipify.org/
-postman_collection_url:
+[IPIFY_IP_ADDRESS]
+curl_command: curl -X GET "https://api.ipify.org?format=json"
+description: Retrieves the client's public IP address
+documentation_url: https://www.ipify.org/
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-7cb22091-1dd8-49b5-b58c-d55cac63fe4f
 example_prompt_url:
 
 [WEATHERAPI_CURRENT]
 curl_command: curl -X GET "https://api.weatherapi.com/v1/current.json?key=demo&q=London&aqi=no"
 description: Retrieves current weather conditions and forecasts from WeatherAPI
 documentation_url: https://www.weatherapi.com/docs/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-926ba294-5497-476d-8685-259bca52e944
 example_prompt_url:
 
 [SPOONACULAR_RECIPES]
 curl_command: curl -X GET "https://api.spoonacular.com/recipes/1/information?apiKey=demo"
 description: Retrieves recipe information including ingredients and instructions
 documentation_url: https://spoonacular.com/food-api
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-948083f3-2404-4bac-a937-3382c7c08469
 example_prompt_url:
 
 [ADVICESLIP_ADVICE]
 curl_command: curl -X GET "https://api.adviceslip.com/advice"
 description: Retrieves random advice slips with unique IDs
 documentation_url: https://api.adviceslip.com/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-5c116220-e382-4013-9a6c-d6315a11b975
 example_prompt_url:
 
 [USELESSFACTS_API]
-curl_command: curl -X GET "https://uselessfacts.jsph.pl/random.json?language=en"
-description: Retrieves random useless facts
+curl_command: curl -X GET "https://uselessfacts.jsph.pl/api/v2/facts/random?language=en"
+description: Retrieves random useless facts from the Useless Facts API
 documentation_url: https://uselessfacts.jsph.pl/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-f936b88f-acd8-408f-baab-78c0aad77f8f
 example_prompt_url:
 
 [NUMBERSAPI_TRIVIA]
 curl_command: curl -X GET "https://api.api-ninjas.com/v1/facts?limit=1"
 description: Retrieves interesting facts about numbers and dates
 documentation_url: https://api-ninjas.com/api/facts
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-7cee3c65-b0ee-4cfc-b18b-73fa122006b9
 example_prompt_url:
 
 [KANYE_QUOTES]
 curl_command: curl -X GET "https://api.kanye.rest/"
 description: Retrieves random Kanye West quotes
-documentation_url: https://github.com/jaysalvat/kanye.rest
-postman_collection_url:
+documentation_url: https://kanye.rest/
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-db468a42-da8e-401a-a4cd-01a57dffe3bb
 example_prompt_url:
 
-[BORED_ACTIVITIES]
-curl_command: curl -X GET "https://www.boredapi.com/api/activity"
-description: Retrieves random activity suggestions when bored
-documentation_url: https://www.boredapi.com/
-postman_collection_url:
+[DOGCEO_IMAGES]
+curl_command: curl -X GET "https://dog.ceo/api/breeds/image/random"
+description: Retrieves random dog breed images from Dog CEO API
+documentation_url: https://dog.ceo/dog-api/
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-6b45c031-fdb5-47c8-8552-37bf2abbf1e2
 example_prompt_url:
 
-[TRONALDDUMP_QUOTES]
-curl_command: curl -X GET "https://api.tronalddump.io/random/quote"
-description: Retrieves random Donald Trump quotes
-documentation_url: https://tronalddump.io/
-postman_collection_url:
+[PROGRAMMING_QUOTES]
+curl_command: curl -X GET "https://api.api-ninjas.com/v1/quotes?category=programming"
+description: Retrieves random programming-related quotes from API Ninjas
+documentation_url: https://api-ninjas.com/api/quotes
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-03919a18-296f-4c81-abe6-e13c8fc4271c
 example_prompt_url:
 
-[OFFICEQUOTES_API]
-curl_command: curl -X GET "https://www.officeapi.dev/api/quotes/random"
-description: Retrieves random quotes from the TV show The Office
-documentation_url: https://www.officeapi.dev/
-postman_collection_url:
+[MOTIVATIONAL_QUOTES]
+curl_command: curl -X GET "https://api.api-ninjas.com/v1/quotes?category=motivational"
+description: Retrieves random motivational quotes from API Ninjas
+documentation_url: https://api-ninjas.com/api/quotes
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-cdf70eee-fcf3-48b8-88a9-e0ef7a3594b5
 example_prompt_url:
 
 [BREAKINGBAD_CHARACTERS]
 curl_command: curl -X GET "https://www.breakingbadapi.com/api/characters/1"
 description: Retrieves character information from Breaking Bad TV series
 documentation_url: https://www.breakingbadapi.com/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-997fe60d-87e1-49e8-b56c-2a4b4cacee18
 example_prompt_url:
 
 [RICKANDMORTY_CHARACTERS]
 curl_command: curl -X GET "https://rickandmortyapi.com/api/character/1"
 description: Retrieves character information from Rick and Morty TV series
 documentation_url: https://rickandmortyapi.com/
-postman_collection_url:
+postman_collection_url: https://www.postman.com/ai-readiness-evaluator-c8021d88e336438f99eb/ai-readiness-evaluator/collection/43880489-0fc809d4-69b8-405e-a6b9-c9c38dff0802
 example_prompt_url:
 

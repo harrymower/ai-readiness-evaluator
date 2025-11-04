@@ -1,0 +1,52 @@
+api_name: JIKAN_ANIME
+api_endpoint: https://api.jikan.moe/v4/anime/{id}
+description: Jikan (MyAnimeList) - Anime details
+
+api_capabilities:
+  - name: "Get anime by ID"
+    endpoint: "/v4/anime/{id}"
+    method: GET
+    parameters: []
+    response_fields:
+      - data
+      - title
+      - titles
+      - synopsis
+
+required_features:
+  - feature: "Fetch anime by ID"
+    priority: critical
+    description: "CLI must accept an anime ID and fetch details"
+  - feature: "Display title field"
+    priority: high
+    description: "Output should include 'title'"
+  - feature: "Handle invalid ID"
+    priority: high
+    description: "Non-numeric IDs should fail cleanly"
+
+behavioral_tests:
+  - name: "fetch_valid_anime"
+    description: "Fetch anime ID 1"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "title"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 60
+
+  - name: "handle_invalid_id"
+    description: "Reject non-numeric ID"
+    command: ["abc"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 40
+
+# Total weight: 100
+

@@ -1,0 +1,138 @@
+api_name: SWAPI_PEOPLE
+api_endpoint: https://swapi.dev/api/people/
+description: Star Wars API - Character Information
+
+# What functionality does the API provide?
+api_capabilities:
+  - name: "Fetch character by ID"
+    endpoint: "/people/{id}/"
+    method: GET
+    parameters: []
+    response_fields:
+      - name
+      - height
+      - mass
+      - hair_color
+      - skin_color
+      - eye_color
+      - birth_year
+      - gender
+      - homeworld
+      - films
+      - species
+      - vehicles
+      - starships
+      - created
+      - edited
+      - url
+
+# What should Claude's CLI be able to do?
+required_features:
+  - feature: "Fetch character by ID"
+    priority: critical
+    description: "CLI must accept a character ID and fetch their details"
+    
+  - feature: "Display character information"
+    priority: critical
+    description: "CLI must display at least: name, height, mass, gender, birth_year"
+    
+  - feature: "Handle invalid IDs"
+    priority: high
+    description: "CLI must gracefully handle invalid character IDs (negative, zero, non-numeric)"
+    
+  - feature: "Handle non-existent IDs"
+    priority: high
+    description: "CLI must gracefully handle character IDs that don't exist (404)"
+    
+  - feature: "Handle network errors"
+    priority: medium
+    description: "CLI should handle network connectivity issues"
+
+# Behavioral tests - these are the ground truth
+behavioral_tests:
+  - name: "fetch_valid_character"
+    description: "Fetch Luke Skywalker (ID 1)"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Luke Skywalker"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 20
+      
+  - name: "fetch_another_valid_character"
+    description: "Fetch Darth Vader (ID 4)"
+    command: ["4"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Darth Vader"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "display_key_fields"
+    description: "Verify key character fields are displayed"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "name"
+        - "height"
+        - "gender"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "handle_nonexistent_character"
+    description: "Handle character ID that doesn't exist"
+    command: ["99999"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 20
+      
+  - name: "handle_invalid_id_negative"
+    description: "Reject negative character ID"
+    command: ["-1"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 10
+      
+  - name: "handle_invalid_id_zero"
+    description: "Reject zero as character ID"
+    command: ["0"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 10
+      
+  - name: "handle_invalid_id_string"
+    description: "Reject non-numeric character ID"
+    command: ["abc"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 10
+
+# Scoring: Total weight = 100
+# Pass a test = earn its weight
+# Final score = sum of passed test weights
+

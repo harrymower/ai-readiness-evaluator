@@ -1,0 +1,45 @@
+api_name: OPEN_METEO_WEATHER
+api_endpoint: https://api.open-meteo.com/v1/forecast
+description: Open-Meteo API - Current Weather Forecast
+
+# Minimal API capability (for evaluator context)
+api_capabilities:
+  - name: "Get current weather (example values)"
+    endpoint: "/v1/forecast"
+    method: GET
+    parameters:
+      - latitude
+      - longitude
+      - current
+      - timezone
+    response_fields:
+      - latitude
+      - longitude
+      - current
+
+# Thin requirements: focus on reality and key fields
+required_features:
+  - feature: "Fetch current weather using provided example values"
+    priority: critical
+    description: "CLI should succeed using the provided example coordinates without extra flags"
+  - feature: "Display key location fields"
+    priority: high
+    description: "Output should include latitude and longitude"
+
+# Behavioral tests (thin baseline)
+behavioral_tests:
+  - name: "fetch_current_weather_default"
+    description: "Run with defaults derived from the provided curl example"
+    command: []
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "latitude"
+        - "longitude"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 100
+
+# Total weight: 100
+

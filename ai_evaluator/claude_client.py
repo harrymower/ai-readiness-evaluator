@@ -12,6 +12,14 @@ class ClaudeClientError(Exception):
     pass
 
 
+class PartialFileCreationError(ClaudeClientError):
+    """Exception raised when Claude creates only one of the two required files."""
+    def __init__(self, message: str, has_cli: bool, has_test: bool):
+        super().__init__(message)
+        self.has_cli = has_cli
+        self.has_test = has_test
+
+
 class ClaudeClient:
     """Client for interacting with Claude via the Claude Agent SDK."""
 
@@ -214,11 +222,24 @@ class ClaudeClient:
         cli_tool_path = working_dir / "cli_tool.py"
         test_tool_path = working_dir / "test_cli_tool.py"
 
-        if cli_tool_path.exists() and test_tool_path.exists():
+        has_cli = cli_tool_path.exists()
+        has_test = test_tool_path.exists()
+
+        if has_cli and has_test:
             return {
                 'code': cli_tool_path.read_text(encoding='utf-8'),
                 'tests': test_tool_path.read_text(encoding='utf-8')
             }
+
+        # Check for partial file creation (only one file exists)
+        if has_cli or has_test:
+            raise PartialFileCreationError(
+                f"Claude created only {'cli_tool.py' if has_cli else 'test_cli_tool.py'}. "
+                f"Missing {'test_cli_tool.py' if has_cli else 'cli_tool.py'}. "
+                f"This is retryable.",
+                has_cli=has_cli,
+                has_test=has_test
+            )
 
         # If we still don't have code, raise an error
         raise ClaudeClientError(

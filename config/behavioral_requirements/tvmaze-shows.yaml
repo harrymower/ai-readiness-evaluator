@@ -1,0 +1,132 @@
+api_name: TVMAZE_SHOWS
+api_endpoint: https://api.tvmaze.com/shows/
+description: TVMaze API - TV Show Information
+
+# What functionality does the API provide?
+api_capabilities:
+  - name: "Get show by ID"
+    endpoint: "/shows/{id}"
+    method: GET
+    parameters: []
+    response_fields:
+      - id
+      - url
+      - name
+      - type
+      - language
+      - genres
+      - status
+      - runtime
+      - premiered
+      - officialSite
+      - schedule
+      - rating
+      - network
+      - summary
+      - image
+
+# What should Claude's CLI be able to do?
+required_features:
+  - feature: "Fetch show by ID"
+    priority: critical
+    description: "CLI must accept a show ID and fetch details"
+    
+  - feature: "Display show information"
+    priority: critical
+    description: "CLI must display at least: name, genres, status, summary"
+    
+  - feature: "Handle invalid IDs"
+    priority: high
+    description: "CLI must gracefully handle invalid show IDs"
+    
+  - feature: "Handle non-existent IDs"
+    priority: high
+    description: "CLI must gracefully handle show IDs that don't exist (404)"
+
+# Behavioral tests - these are the ground truth
+behavioral_tests:
+  - name: "fetch_valid_show"
+    description: "Fetch show ID 1 (Under the Dome)"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Under the Dome"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 25
+      
+  - name: "display_show_name"
+    description: "Verify show name is displayed"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Name"
+        - "Under the Dome"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "display_genres"
+    description: "Verify genres are displayed"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Genre"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "display_status"
+    description: "Verify show status is displayed"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Status"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "fetch_another_show"
+    description: "Fetch show ID 2 (Person of Interest)"
+    command: ["2"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Person of Interest"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 10
+      
+  - name: "handle_nonexistent_show"
+    description: "Handle show ID that doesn't exist"
+    command: ["999999"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 10
+      
+  - name: "handle_invalid_id"
+    description: "Reject non-numeric show ID"
+    command: ["abc"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 10
+
+# Scoring: Total weight = 100
+

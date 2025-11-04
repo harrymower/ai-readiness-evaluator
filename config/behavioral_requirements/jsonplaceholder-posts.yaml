@@ -1,0 +1,52 @@
+api_name: JSONPLACEHOLDER_POSTS
+api_endpoint: https://jsonplaceholder.typicode.com/posts/{id}
+description: JSONPlaceholder - Posts (fake API)
+
+api_capabilities:
+  - name: "Get post by ID"
+    endpoint: "/posts/{id}"
+    method: GET
+    parameters: []
+    response_fields:
+      - userId
+      - id
+      - title
+      - body
+
+required_features:
+  - feature: "Fetch post by ID"
+    priority: critical
+    description: "CLI must accept a post ID and fetch details"
+  - feature: "Display key fields"
+    priority: high
+    description: "Output should include the post title"
+  - feature: "Handle invalid ID string"
+    priority: high
+    description: "Non-numeric IDs should fail cleanly"
+
+behavioral_tests:
+  - name: "fetch_valid_post"
+    description: "Fetch post ID 1"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "title"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 60
+
+  - name: "handle_invalid_id_string"
+    description: "Reject non-numeric ID"
+    command: ["abc"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 40
+
+# Total weight: 100
+

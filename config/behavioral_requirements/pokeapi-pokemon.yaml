@@ -1,0 +1,52 @@
+api_name: POKEAPI_POKEMON
+api_endpoint: https://pokeapi.co/api/v2/pokemon/{id_or_name}
+description: PokeAPI - Pokemon details
+
+api_capabilities:
+  - name: "Get pokemon by ID or name"
+    endpoint: "/api/v2/pokemon/{id_or_name}"
+    method: GET
+    parameters: []
+    response_fields:
+      - id
+      - name
+      - abilities
+      - stats
+
+required_features:
+  - feature: "Fetch pokemon by ID"
+    priority: critical
+    description: "CLI must accept an ID and fetch details"
+  - feature: "Display name field"
+    priority: high
+    description: "Output should include 'name'"
+  - feature: "Handle invalid name"
+    priority: high
+    description: "Unknown names should fail cleanly"
+
+behavioral_tests:
+  - name: "fetch_valid_pokemon"
+    description: "Fetch pokemon ID 1"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "name"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 60
+
+  - name: "handle_invalid_name"
+    description: "Reject unknown pokemon name"
+    command: ["notapokemon"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 40
+
+# Total weight: 100
+

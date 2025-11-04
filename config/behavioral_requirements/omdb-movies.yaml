@@ -1,0 +1,150 @@
+api_name: OMDB_MOVIES
+api_endpoint: https://www.omdbapi.com/
+description: Open Movie Database - Movie Information
+note: "Requires valid API key - 'demo' key does NOT work"
+
+# What functionality does the API provide?
+api_capabilities:
+  - name: "Search by title"
+    endpoint: "/"
+    method: GET
+    parameters:
+      - name: t
+        description: "Movie title to search for"
+        required: true
+      - name: type
+        description: "Type of result (movie, series, episode)"
+        required: false
+      - name: y
+        description: "Year of release"
+        required: false
+      - name: plot
+        description: "Plot length (short or full)"
+        required: false
+        default: short
+      - name: apikey
+        description: "API key (REQUIRED - must be valid)"
+        required: true
+    response_fields:
+      - Title
+      - Year
+      - Rated
+      - Released
+      - Runtime
+      - Genre
+      - Director
+      - Writer
+      - Actors
+      - Plot
+      - Language
+      - Country
+      - Awards
+      - Poster
+      - imdbRating
+      - imdbID
+      - Type
+
+# What should Claude's CLI be able to do?
+required_features:
+  - feature: "Search by movie title"
+    priority: critical
+    description: "CLI must accept a movie title and fetch details"
+    
+  - feature: "Display movie information"
+    priority: critical
+    description: "CLI must display at least: Title, Year, Director, Plot"
+    
+  - feature: "Support optional parameters"
+    priority: high
+    description: "CLI should support --year, --type, --plot flags"
+    
+  - feature: "Handle movie not found"
+    priority: high
+    description: "CLI must gracefully handle when movie doesn't exist"
+    
+  - feature: "Use valid API key"
+    priority: critical
+    description: "CLI must NOT use 'demo' as API key - this will fail"
+
+# Behavioral tests - these are the ground truth
+# NOTE: These tests will FAIL if Claude uses apikey=demo
+behavioral_tests:
+  - name: "fetch_valid_movie"
+    description: "Fetch The Matrix"
+    command: ["The Matrix"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Matrix"
+        - "1999"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 25
+      
+  - name: "display_key_fields"
+    description: "Verify key movie fields are displayed"
+    command: ["The Matrix"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Title"
+        - "Year"
+        - "Director"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "support_year_parameter"
+    description: "Search with year parameter"
+    command: ["The Matrix", "--year", "1999"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Matrix"
+        - "1999"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "support_type_parameter"
+    description: "Search with type parameter"
+    command: ["The Matrix", "--type", "movie"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Matrix"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 15
+      
+  - name: "support_plot_parameter"
+    description: "Request full plot"
+    command: ["The Matrix", "--plot", "full"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Matrix"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 10
+      
+  - name: "handle_nonexistent_movie"
+    description: "Handle movie that doesn't exist"
+    command: ["ThisMovieDefinitelyDoesNotExist12345"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 20
+
+# Scoring: Total weight = 100
+# If Claude uses apikey=demo, all tests requiring API calls will fail (80 points lost)
+# This correctly identifies the authentication issue
+

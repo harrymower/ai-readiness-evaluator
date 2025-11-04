@@ -1,0 +1,53 @@
+api_name: GITHUB_USER
+api_endpoint: https://api.github.com/users/{username}
+description: GitHub REST API - User profile
+
+api_capabilities:
+  - name: "Get user by username"
+    endpoint: "/users/{username}"
+    method: GET
+    parameters: []
+    response_fields:
+      - login
+      - id
+      - name
+      - public_repos
+
+required_features:
+  - feature: "Fetch user by username"
+    priority: critical
+    description: "CLI must accept a username and fetch details"
+  - feature: "Display login field"
+    priority: high
+    description: "Output should include 'login' and the username"
+  - feature: "Handle non-existent user"
+    priority: high
+    description: "Unknown usernames should fail cleanly"
+
+behavioral_tests:
+  - name: "fetch_valid_user"
+    description: "Fetch torvalds"
+    command: ["torvalds"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "login"
+        - "torvalds"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 60
+
+  - name: "handle_nonexistent_user"
+    description: "Unknown user should fail"
+    command: ["thisuserdoesnotexist123456"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 40
+
+# Total weight: 100
+

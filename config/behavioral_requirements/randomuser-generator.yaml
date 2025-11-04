@@ -1,0 +1,39 @@
+api_name: RANDOMUSER_GENERATOR
+api_endpoint: https://randomuser.me/api/
+description: RandomUser - Generate random user data
+
+api_capabilities:
+  - name: "Generate default user"
+    endpoint: "/api/"
+    method: GET
+    parameters: []
+    response_fields:
+      - results
+      - name
+      - email
+      - gender
+
+required_features:
+  - feature: "Fetch default user data"
+    priority: critical
+    description: "CLI should succeed without additional arguments"
+  - feature: "Display key fields"
+    priority: high
+    description: "Output should include 'results' and 'name'"
+
+behavioral_tests:
+  - name: "fetch_default_user"
+    description: "Run with no arguments"
+    command: []
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "results"
+        - "name"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 100
+
+# Total weight: 100
+

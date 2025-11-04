@@ -1,0 +1,52 @@
+api_name: RICK_AND_MORTY_CHARACTER
+api_endpoint: https://rickandmortyapi.com/api/character/{id}
+description: The Rick and Morty API - Character by ID
+
+api_capabilities:
+  - name: "Get character by ID"
+    endpoint: "/api/character/{id}"
+    method: GET
+    parameters: []
+    response_fields:
+      - id
+      - name
+      - status
+      - species
+
+required_features:
+  - feature: "Fetch character by ID"
+    priority: critical
+    description: "CLI must accept an ID and fetch details"
+  - feature: "Display name field"
+    priority: high
+    description: "Output should include 'Rick Sanchez' for id=1"
+  - feature: "Handle non-existent ID"
+    priority: high
+    description: "Unknown IDs should fail cleanly"
+
+behavioral_tests:
+  - name: "fetch_valid_character"
+    description: "Fetch character ID 1"
+    command: ["1"]
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "Rick Sanchez"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 60
+
+  - name: "handle_nonexistent_character"
+    description: "Unknown ID should fail"
+    command: ["999999"]
+    expected:
+      exit_code: 1
+      stdout_contains: []
+      stdout_not_contains: []
+      stderr_empty: false
+    scoring:
+      weight: 40
+
+# Total weight: 100
+

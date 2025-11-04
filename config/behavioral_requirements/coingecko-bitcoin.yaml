@@ -1,0 +1,39 @@
+api_name: COINGECKO_BITCOIN
+api_endpoint: https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd
+description: CoinGecko - Simple price (BTC in USD)
+
+api_capabilities:
+  - name: "Get price for bitcoin in USD (example)"
+    endpoint: "/api/v3/simple/price"
+    method: GET
+    parameters:
+      - ids
+      - vs_currencies
+    response_fields:
+      - bitcoin
+      - usd
+
+required_features:
+  - feature: "Fetch BTC price in USD using provided example"
+    priority: critical
+    description: "CLI should succeed using the provided example without extra flags"
+  - feature: "Display key fields"
+    priority: high
+    description: "Output should include 'bitcoin' and 'usd'"
+
+behavioral_tests:
+  - name: "fetch_bitcoin_price"
+    description: "Run with defaults derived from the provided curl example"
+    command: []
+    expected:
+      exit_code: 0
+      stdout_contains:
+        - "bitcoin"
+        - "usd"
+      stdout_not_contains: []
+      stderr_empty: true
+    scoring:
+      weight: 100
+
+# Total weight: 100
+
