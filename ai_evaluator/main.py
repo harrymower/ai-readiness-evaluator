@@ -664,7 +664,7 @@ class EvaluatorOrchestrator:
                 lines.append(f"- `{round_folder}/{api_folder}/`\n")
                 lines.append(f"  - `cli_tool.py` - Generated CLI tool\n")
                 lines.append(f"  - `test_cli_tool.py` - Generated tests\n")
-                lines.append(f"  - `evaluation_report.json` - Evaluation results\n")
+                lines.append(f"  - `evaluation_report.md` - Evaluation results\n")
         lines.append("\n")
 
         return "".join(lines)
