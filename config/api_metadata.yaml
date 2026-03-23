@@ -1,0 +1,677 @@
+# API Metadata for Complexity Analysis
+# This file contains service-level metadata for all APIs tested in apis.txt
+# Used for bucketing APIs by complexity signals
+
+# Complexity Signals (Phase 0.1):
+# - auth_required: Does the API require authentication? (yes/no/optional)
+# - pagination_supported: Does the API support pagination? (yes/no/unknown)
+# - total_endpoints: Total number of endpoints in the API service
+# - schema_depth: Maximum nesting depth of response JSON (shallow/medium/deep)
+# - avg_response_size_kb: Average response size in kilobytes (estimated)
+# - error_surface: Variety of error codes/scenarios (low/medium/high)
+
+# Additional Complexity Signals (Phase 0.1.0.1):
+# - parameter_complexity: Typical request parameter complexity (low/medium/high/unknown)
+# - pagination_pattern: Primary pagination mechanism (none/offset_limit/page_size/cursor/mixed/other/unknown)
+# - rate_limiting: Rate-limiting complexity (none/simple/complex/unknown)
+# - doc_coverage: Documentation quality (low/medium/high/unknown)
+# - error_codes_count: Approximate number of distinct error status codes (integer)
+
+open-meteo.com:
+  service_name: "Open-Meteo Weather API"
+  base_url: "https://api.open-meteo.com/v1/"
+  total_endpoints: 8
+  auth_required: no
+  pagination_supported: no
+  schema_depth: medium
+  avg_response_size_kb: 2
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 3
+  test_scenarios:
+    - OPEN_METEO_WEATHER
+  endpoints:
+    - /forecast
+    - /historical
+    - /marine
+    - /air-quality
+    - /climate
+    - /elevation
+    - /geocoding
+    - /timezone
+  notes: "Free API, no authentication required"
+
+swapi.dev:
+  service_name: "Star Wars API (SWAPI)"
+  base_url: "https://swapi.dev/api/"
+  total_endpoints: 6
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 3
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: cursor
+  rate_limiting: none
+  doc_coverage: high
+  error_codes_count: 2
+  test_scenarios:
+    - SWAPI_PEOPLE
+  endpoints:
+    - /people
+    - /films
+    - /starships
+    - /vehicles
+    - /species
+    - /planets
+  notes: "Returns paginated results with 'next' and 'previous' links"
+
+jsonplaceholder.typicode.com:
+  service_name: "JSONPlaceholder"
+  base_url: "https://jsonplaceholder.typicode.com/"
+  total_endpoints: 6
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 1
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: high
+  error_codes_count: 2
+  test_scenarios:
+    - JSONPLACEHOLDER_POSTS
+  endpoints:
+    - /posts
+    - /comments
+    - /albums
+    - /photos
+    - /todos
+    - /users
+  notes: "Fake REST API for testing and prototyping"
+
+randomuser.me:
+  service_name: "Random User Generator"
+  base_url: "https://randomuser.me/api/"
+  total_endpoints: 1
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: deep
+  avg_response_size_kb: 5
+  error_surface: low
+  parameter_complexity: medium
+  pagination_pattern: page_size
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - RANDOMUSER_GENERATOR
+  endpoints:
+    - /api
+  notes: "Single endpoint with query parameters for customization"
+
+jikan.moe:
+  service_name: "Jikan - MyAnimeList API"
+  base_url: "https://api.jikan.moe/v4/"
+  total_endpoints: 20
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: deep
+  avg_response_size_kb: 15
+  error_surface: medium
+  parameter_complexity: medium
+  pagination_pattern: page_size
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 5
+  test_scenarios:
+    - JIKAN_ANIME
+  endpoints:
+    - /anime
+    - /manga
+    - /characters
+    - /people
+    - /clubs
+    - /producers
+    - /magazines
+    - /genres
+    - /reviews
+    - /recommendations
+    - /schedules
+    - /seasons
+    - /top
+    - /random
+    - /users
+    - /watch
+  notes: "Unofficial MyAnimeList API with rate limiting"
+
+tvmaze.com:
+  service_name: "TVMaze API"
+  base_url: "https://api.tvmaze.com/"
+  total_endpoints: 12
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 8
+  error_surface: medium
+  parameter_complexity: medium
+  pagination_pattern: page_size
+  rate_limiting: simple
+  doc_coverage: high
+  error_codes_count: 4
+  test_scenarios:
+    - TVMAZE_SHOWS
+  endpoints:
+    - /shows
+    - /people
+    - /search/shows
+    - /search/people
+    - /schedule
+    - /episodes
+    - /seasons
+    - /cast
+    - /crew
+    - /images
+    - /updates
+    - /akas
+  notes: "TV show and web series database"
+
+omdbapi.com:
+  service_name: "Open Movie Database (OMDB)"
+  base_url: "https://www.omdbapi.com/"
+  total_endpoints: 1
+  auth_required: yes
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 3
+  error_surface: medium
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 4
+  test_scenarios:
+    - OMDB_MOVIES
+  endpoints:
+    - /
+  notes: "Requires API key; 'demo' key does NOT work in practice"
+
+pokeapi.co:
+  service_name: "PokéAPI"
+  base_url: "https://pokeapi.co/api/v2/"
+  total_endpoints: 40
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: deep
+  avg_response_size_kb: 50
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: offset_limit
+  rate_limiting: none
+  doc_coverage: high
+  error_codes_count: 2
+  test_scenarios:
+    - POKEAPI_POKEMON
+  endpoints:
+    - /pokemon
+    - /ability
+    - /berry
+    - /characteristic
+    - /contest-type
+    - /egg-group
+    - /encounter-method
+    - /evolution-chain
+    - /gender
+    - /generation
+    - /growth-rate
+    - /item
+    - /language
+    - /location
+    - /move
+    - /nature
+    - /pal-park-area
+    - /pokedex
+    - /region
+    - /stat
+    - /type
+    - /version
+  notes: "Comprehensive Pokemon data; very large response objects with deep nesting"
+
+api.github.com:
+  service_name: "GitHub REST API"
+  base_url: "https://api.github.com/"
+  total_endpoints: 200
+  auth_required: optional
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 5
+  error_surface: high
+  parameter_complexity: high
+  pagination_pattern: mixed
+  rate_limiting: complex
+  doc_coverage: high
+  error_codes_count: 12
+  test_scenarios:
+    - GITHUB_USER
+  endpoints:
+    - /users
+    - /repos
+    - /orgs
+    - /gists
+    - /issues
+    - /pulls
+    - /commits
+    - /branches
+    - /releases
+    - /search
+  notes: "Rate limiting applies; higher limits with authentication"
+
+coingecko.com:
+  service_name: "CoinGecko API"
+  base_url: "https://api.coingecko.com/api/v3/"
+  total_endpoints: 50
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 10
+  error_surface: medium
+  parameter_complexity: medium
+  pagination_pattern: page_size
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 5
+  test_scenarios:
+    - COINGECKO_BITCOIN
+  endpoints:
+    - /simple/price
+    - /coins/list
+    - /coins/markets
+    - /coins/{id}
+    - /exchanges
+    - /exchange_rates
+    - /trending
+    - /global
+    - /companies/public_treasury
+    - /search
+  notes: "Cryptocurrency data API with rate limiting"
+
+geonames.org:
+  service_name: "GeoNames API"
+  base_url: "https://www.geonames.org/"
+  total_endpoints: 30
+  auth_required: optional
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 8
+  error_surface: medium
+  parameter_complexity: medium
+  pagination_pattern: offset_limit
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 6
+  test_scenarios:
+    - GEONAMES_LOCATIONS
+  endpoints:
+    - /childrenJSON
+    - /searchJSON
+    - /getJSON
+    - /findNearbyJSON
+    - /countryInfoJSON
+    - /weatherJSON
+    - /timezoneJSON
+    - /postalCodeSearchJSON
+    - /findNearbyPlaceNameJSON
+    - /wikipediaSearchJSON
+  notes: "Geographic database; some endpoints require registration"
+
+zenquotes.io:
+  service_name: "ZenQuotes API"
+  base_url: "https://zenquotes.io/api/"
+  total_endpoints: 3
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 1
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - ZENQUOTES_QUOTES
+  endpoints:
+    - /random
+    - /today
+    - /quotes
+  notes: "Simple quotes API with minimal complexity"
+
+catfact.ninja:
+  service_name: "Cat Facts API"
+  base_url: "https://catfact.ninja/"
+  total_endpoints: 2
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: shallow
+  avg_response_size_kb: 1
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: page_size
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - CATFACTS_API
+  endpoints:
+    - /fact
+    - /facts
+  notes: "Simple API returning random cat facts"
+
+agify.io:
+  service_name: "Agify API"
+  base_url: "https://api.agify.io/"
+  total_endpoints: 1
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.2
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 3
+  test_scenarios:
+    - AGIFY_PREDICTION
+  endpoints:
+    - /
+  notes: "Predicts age from name; single endpoint with query params"
+
+genderize.io:
+  service_name: "Genderize API"
+  base_url: "https://api.genderize.io/"
+  total_endpoints: 1
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.2
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 3
+  test_scenarios:
+    - GENDERIZE_PREDICTION
+  endpoints:
+    - /
+  notes: "Predicts gender from name; single endpoint with query params"
+
+nationalize.io:
+  service_name: "Nationalize API"
+  base_url: "https://api.nationalize.io/"
+  total_endpoints: 1
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.3
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 3
+  test_scenarios:
+    - NATIONALIZE_PREDICTION
+  endpoints:
+    - /
+  notes: "Predicts nationality from name; single endpoint with query params"
+
+ipify.org:
+  service_name: "Ipify API"
+  base_url: "https://api.ipify.org/"
+  total_endpoints: 1
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.1
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: low
+  error_codes_count: 1
+  test_scenarios:
+    - IPIFY_IP_ADDRESS
+  endpoints:
+    - /
+  notes: "Returns client's public IP address; extremely simple API"
+
+weatherapi.com:
+  service_name: "WeatherAPI"
+  base_url: "https://api.weatherapi.com/v1/"
+  total_endpoints: 8
+  auth_required: yes
+  pagination_supported: no
+  schema_depth: medium
+  avg_response_size_kb: 12
+  error_surface: medium
+  parameter_complexity: medium
+  pagination_pattern: none
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 6
+  test_scenarios:
+    - WEATHERAPI_CURRENT
+  endpoints:
+    - /current.json
+    - /forecast.json
+    - /history.json
+    - /search.json
+    - /marine.json
+    - /future.json
+    - /astronomy.json
+    - /timezone.json
+  notes: "Requires API key; 'demo' key may have limited functionality"
+
+spoonacular.com:
+  service_name: "Spoonacular Food API"
+  base_url: "https://api.spoonacular.com/"
+  total_endpoints: 80
+  auth_required: yes
+  pagination_supported: yes
+  schema_depth: deep
+  avg_response_size_kb: 25
+  error_surface: high
+  parameter_complexity: high
+  pagination_pattern: offset_limit
+  rate_limiting: complex
+  doc_coverage: high
+  error_codes_count: 10
+  test_scenarios:
+    - SPOONACULAR_RECIPES
+  endpoints:
+    - /recipes/random
+    - /recipes/{id}/information
+    - /recipes/complexSearch
+    - /recipes/findByIngredients
+    - /recipes/findByNutrients
+    - /food/ingredients/search
+    - /food/products/search
+    - /food/menuItems/search
+    - /recipes/analyze
+    - /recipes/parseIngredients
+  notes: "Comprehensive food and recipe API; requires API key with quota limits"
+
+adviceslip.com:
+  service_name: "Advice Slip API"
+  base_url: "https://api.adviceslip.com/"
+  total_endpoints: 2
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.5
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - ADVICESLIP_ADVICE
+  endpoints:
+    - /advice
+    - /advice/{slip_id}
+  notes: "Simple advice API with random or specific advice slips"
+
+uselessfacts.jsph.pl:
+  service_name: "Useless Facts API"
+  base_url: "https://uselessfacts.jsph.pl/api/v2/"
+  total_endpoints: 3
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.5
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - USELESSFACTS_API
+  endpoints:
+    - /facts/random
+    - /facts/today
+    - /facts/{id}
+  notes: "Returns random useless facts in multiple languages"
+
+api-ninjas.com:
+  service_name: "API Ninjas"
+  base_url: "https://api.api-ninjas.com/v1/"
+  total_endpoints: 50
+  auth_required: yes
+  pagination_supported: yes
+  schema_depth: shallow
+  avg_response_size_kb: 2
+  error_surface: medium
+  parameter_complexity: medium
+  pagination_pattern: offset_limit
+  rate_limiting: simple
+  doc_coverage: medium
+  error_codes_count: 6
+  test_scenarios:
+    - NUMBERSAPI_TRIVIA
+    - PROGRAMMING_QUOTES
+    - MOTIVATIONAL_QUOTES
+  endpoints:
+    - /facts
+    - /quotes
+    - /trivia
+    - /jokes
+    - /riddles
+    - /dadjokes
+    - /bucketlist
+    - /exercises
+    - /cocktail
+    - /celebrity
+  notes: "Collection of utility APIs; requires API key; multiple test scenarios use this service"
+
+kanye.rest:
+  service_name: "Kanye Rest API"
+  base_url: "https://api.kanye.rest/"
+  total_endpoints: 1
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.2
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: low
+  error_codes_count: 1
+  test_scenarios:
+    - KANYE_QUOTES
+  endpoints:
+    - /
+  notes: "Returns random Kanye West quotes; single endpoint"
+
+dog.ceo:
+  service_name: "Dog CEO API"
+  base_url: "https://dog.ceo/api/"
+  total_endpoints: 8
+  auth_required: no
+  pagination_supported: no
+  schema_depth: shallow
+  avg_response_size_kb: 0.5
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: none
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - DOGCEO_IMAGES
+  endpoints:
+    - /breeds/image/random
+    - /breeds/list/all
+    - /breed/{breed}/images
+    - /breed/{breed}/images/random
+    - /breed/{breed}/{sub-breed}/images
+    - /breed/{breed}/{sub-breed}/images/random
+    - /breeds/image/random/{count}
+    - /breed/{breed}/list
+  notes: "Dog breed images API; simple and reliable"
+
+breakingbadapi.com:
+  service_name: "Breaking Bad API"
+  base_url: "https://www.breakingbadapi.com/api/"
+  total_endpoints: 6
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 5
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: offset_limit
+  rate_limiting: none
+  doc_coverage: medium
+  error_codes_count: 2
+  test_scenarios:
+    - BREAKINGBAD_CHARACTERS
+  endpoints:
+    - /characters
+    - /episodes
+    - /quotes
+    - /deaths
+    - /random-quote
+    - /quote
+  notes: "Breaking Bad TV series data; supports pagination and filtering"
+
+rickandmortyapi.com:
+  service_name: "Rick and Morty API"
+  base_url: "https://rickandmortyapi.com/api/"
+  total_endpoints: 3
+  auth_required: no
+  pagination_supported: yes
+  schema_depth: medium
+  avg_response_size_kb: 4
+  error_surface: low
+  parameter_complexity: low
+  pagination_pattern: page_size
+  rate_limiting: none
+  doc_coverage: high
+  error_codes_count: 2
+  test_scenarios:
+    - RICKANDMORTY_CHARACTERS
+  endpoints:
+    - /character
+    - /location
+    - /episode
+  notes: "Rick and Morty TV series data; well-documented with pagination"
+

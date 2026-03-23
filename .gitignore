@@ -45,6 +45,10 @@ htmlcov/
 # Results (generated output)
 results/
 
+# Temporary files
+tmp/
+nul
+
 # OS
 .DS_Store
 Thumbs.db

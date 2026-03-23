@@ -2,6 +2,7 @@
 python-dotenv==1.0.0
 requests==2.31.0
 pytest==7.4.3
+pyyaml==6.0.1
 
 # Claude SDK
 # Note: Install claude-agent-sdk from the official source
@@ -9,4 +10,22 @@ pytest==7.4.3
 
 # Optional: For better JSON handling
 # jsonschema==4.20.0
+
+# ============================================================================
+# API Metadata Analyzer Dependencies
+# ============================================================================
+
+# LLM Providers
+google-generativeai>=0.8.0    # Gemini 2.0 Flash (primary LLM)
+openai>=1.0.0                 # GPT-4o-mini (fallback LLM)
+anthropic>=0.40.0             # Claude 3.5 Sonnet (optional LLM)
+
+# Data Validation and Parsing
+pydantic>=2.0.0               # Data models and validation
+beautifulsoup4>=4.12.0        # HTML parsing for documentation
+lxml>=4.9.0                   # XML/HTML parser (faster than html.parser)
+
+# CLI and Utilities
+click>=8.1.0                  # CLI framework
+rich>=13.0.0                  # Rich terminal output (optional, for better UX)
 

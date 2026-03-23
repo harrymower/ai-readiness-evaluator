@@ -1,0 +1,8 @@
+# Sample APIs from the ai-readiness-evaluator project
+# These are real APIs that will be analyzed
+
+curl -X GET "https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&current=temperature_2m,weather_code&timezone=auto"
+curl -X GET "https://swapi.dev/api/people/1/"
+curl -X GET "https://jsonplaceholder.typicode.com/posts/1"
+curl -X GET "https://pokeapi.co/api/v2/pokemon/1"
+curl -X GET "https://api.github.com/users/torvalds"

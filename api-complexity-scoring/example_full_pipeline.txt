@@ -1,0 +1,18 @@
+# Example: Full Pipeline Usage
+
+# Simple programmatic-only example
+curl https://api.github.com/users/octocat
+
+# Full pipeline with documentation and YAML output
+# NOTE: Replace GEMINI_API_KEY with your actual API key in .env
+curl https://api.github.com/users/octocat
+
+# Full pipeline with custom API name
+curl "https://jsonplaceholder.typicode.com/posts/1"
+
+# Batch analysis with full pipeline
+curl https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41
+curl https://swapi.dev/api/people/1
+curl https://jsonplaceholder.typicode.com/posts/1
+curl https://pokeapi.co/api/v2/pokemon/ditto
+curl https://api.github.com/users/octocat

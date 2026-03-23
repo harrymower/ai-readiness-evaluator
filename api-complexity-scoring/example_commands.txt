@@ -1,0 +1,6 @@
+# Example curl commands for testing
+# GitHub API endpoints
+
+curl https://api.github.com/users/octocat
+curl https://api.github.com/users/octocat/repos
+curl https://api.github.com/repos/octocat/hello-world
